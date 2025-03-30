@@ -2,9 +2,20 @@
 
 import pandas as pd
 import streamlit as st
+import sqlite3
 
-# DB1 초기화 (사전에 준비된 엑셀 파일 사용)
-db1 = pd.read_excel('db1.xlsx')
+# SQLite 데이터베이스 경로
+db_path = 'db1.sqlite'
+
+# DB1 초기화 (SQLite 사용)
+def load_db1():
+    conn = sqlite3.connect(db_path)
+    query = 'SELECT * FROM abilities'
+    df = pd.read_sql(query, conn)
+    conn.close()
+    return df
+
+db1 = load_db1()
 
 # Streamlit 세션 상태로 DB 관리
 if 'db2' not in st.session_state:
