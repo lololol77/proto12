@@ -3,26 +3,13 @@
 import pandas as pd
 import streamlit as st
 
-# 데이터 불러오기
-def load_data(file_path):
-    try:
-        df = pd.read_excel(file_path)
-        return df
-    except Exception as e:
-        st.error(f'Error loading file: {e}')
-        return None
-
-# 초기 데이터 불러오기
-file_path = 'db1.xlsx'  # 실제 파일 경로로 수정
+# DB1 초기화 (사전에 준비된 엑셀 파일 사용)
+db1 = pd.read_excel('db1.xlsx')
 
 # Streamlit 세션 상태로 DB 관리
-if 'db1' not in st.session_state:
-    st.session_state['db1'] = load_data(file_path)
-
 if 'db2' not in st.session_state:
     st.session_state['db2'] = pd.DataFrame(columns=['회사명', '업무이름', '요구능력'])
 
-db1 = st.session_state['db1']
 db2 = st.session_state['db2']
 
 # 회사 정보 등록 함수
