@@ -46,8 +46,8 @@ def match_job(name, disability_type, disability_degree):
 
 # 화면 초기화 함수
 def reset_page():
-    st.session_state['response'] = ''
-    st.experimental_rerun()
+    for key in st.session_state.keys():
+        del st.session_state[key]
 
 # Streamlit UI 구현
 st.title('장애인 일자리 매칭 시스템')
@@ -81,6 +81,4 @@ if st.session_state['response'] == '':
         st.session_state['response'] = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
 
 if st.session_state['response'] != '':
-    if st.button('홈으로 돌아가기'):
-        reset_page()
-        st.experimental_rerun()
+    st.button('확인')
