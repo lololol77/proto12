@@ -62,12 +62,12 @@ elif user_type == '지원자':
         results = match_job(name, disability_type, disability_degree)
         for company, job_name, score in results:
             st.write(f'회사: {company}, 업무: {job_name}, 적합도 점수: {score}')
-
+    
 if st.button('추가 질문'):
     response = None
     if user_type == '회사':
         response = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
     elif user_type == '지원자':
         response = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
-    if True:
-        st.button('홈으로 돌아가기', on_click=go_home)
+    if response is not None:
+        st.button('1단계(다 빈칸)으로 돌아가기', on_click=reset_to_step1)
