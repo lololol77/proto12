@@ -20,6 +20,8 @@ db1 = load_db1()
 # Streamlit 세션 상태로 DB 관리
 if 'db2' not in st.session_state:
     st.session_state['db2'] = pd.DataFrame(columns=['회사명', '업무이름', '요구능력'])
+if 'response' not in st.session_state:
+    st.session_state['response'] = ''
 
 db2 = st.session_state['db2']
 
@@ -42,6 +44,11 @@ def match_job(name, disability_type, disability_degree):
     matching_results.sort(key=lambda x: x[2], reverse=True)
     return matching_results
 
+# 화면 초기화 함수
+def reset_page():
+    st.session_state['response'] = ''
+    st.experimental_rerun()
+
 # Streamlit UI 구현
 st.title('장애인 일자리 매칭 시스템')
 
@@ -62,17 +69,17 @@ elif user_type == '지원자':
         results = match_job(name, disability_type, disability_degree)
         for company, job_name, score in results:
             st.write(f'회사: {company}, 업무: {job_name}, 적합도 점수: {score}')
-    
+
 # 유료 서비스 확인
 if st.button('추가 질문'):
-    st.session_state['response'] = None
+    st.session_state['response'] = ''
 
-if st.session_state['response'] is None:
+if st.session_state['response'] == '':
     if user_type == '회사':
         st.session_state['response'] = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
     elif user_type == '지원자':
         st.session_state['response'] = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
 
-if st.session_state['response'] is not None:
+if st.session_state['response'] != '':
     st.button('홈으로 돌아가기', on_click=reset_page)
 
