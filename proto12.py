@@ -69,8 +69,4 @@ if st.button('추가 질문'):
         response = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
     elif user_type == '지원자':
         response = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
-    if response is not None:
-        if st.button('홈으로 돌아가기'):
-            st.experimental_rerun()
-
-
+    st.button('홈으로 돌아가기', on_click=go_home)
