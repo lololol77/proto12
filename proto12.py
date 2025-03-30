@@ -64,10 +64,9 @@ elif user_type == '지원자':
             st.write(f'회사: {company}, 업무: {job_name}, 적합도 점수: {score}')
     
 if st.button('추가 질문'):
-    response = None
     if user_type == '회사':
-        response = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
+        st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
     elif user_type == '지원자':
-        response = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
-
-   
+        st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
+    if st.button('홈으로 돌아가기'):
+        st.experimental_rerun()
