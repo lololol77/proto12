@@ -65,10 +65,16 @@ elif user_type == '지원자':
     
 # 유료 서비스 확인
 if st.button('추가 질문'):
+    st.session_state['response'] = None
+
+if st.session_state['response'] is None:
     if user_type == '회사':
-        st.session_state['response'] = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'], index=0)
+        st.session_state['response'] = st.radio('유료 직무개발 서비스 이용하시겠습니까?', ['예', '아니오'])
     elif user_type == '지원자':
-        st.session_state['response'] = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'], index=0)
+        st.session_state['response'] = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
+
+if st.session_state['response'] is not None:
     if st.button('홈으로 돌아가기'):
+        st.session_state['response'] = None
         st.experimental_rerun()
 
