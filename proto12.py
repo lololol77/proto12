@@ -74,7 +74,5 @@ if st.session_state['response'] is None:
         st.session_state['response'] = st.radio('유료 취업확인 서비스 이용하시겠습니까?', ['예', '아니오'])
 
 if st.session_state['response'] is not None:
-    if st.button('홈으로 돌아가기'):
-        st.session_state['response'] = None
-        st.experimental_rerun()
+    st.button('홈으로 돌아가기', on_click=reset_page
 
