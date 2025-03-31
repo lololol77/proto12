@@ -64,7 +64,7 @@ elif user_type == '지원자':
             st.write(f'회사: {company}, 업무: {job_name}, 적합도 점수: {score}')
 
 # 유료 서비스 질문
-if st.button('유료 서비스'):
+if st.button('유료서비스'):
     st.session_state['response'] = ''
 
 if st.session_state['response'] == '':
