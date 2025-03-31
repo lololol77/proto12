@@ -1,28 +1,22 @@
-# 장애 유형과 직무 능력 매칭 프로그램
-
 import pandas as pd
 import streamlit as st
 import sqlite3
 
-# SQLite 데이터베이스 경로
+# DB1(장애유형,장애정도별 능력치 설정) 연동
 db_path = 'db1.sqlite'
-
-# DB1 초기화 (SQLite 사용)
 def load_db1():
     conn = sqlite3.connect(db_path)
     query = 'SELECT * FROM abilities'
     df = pd.read_sql(query, conn)
     conn.close()
     return df
-
 db1 = load_db1()
 
-# Streamlit 세션 상태로 DB 관리
+# DB2(회사가 등록한 일자리 저장) 연동
 if 'db2' not in st.session_state:
     st.session_state['db2'] = pd.DataFrame(columns=['회사명', '업무이름', '요구능력'])
 if 'response' not in st.session_state:
     st.session_state['response'] = ''
-
 db2 = st.session_state['db2']
 
 # 회사 정보 등록 함수
@@ -49,9 +43,8 @@ def reset_page():
     for key in st.session_state.keys():
         del st.session_state[key]
 
-# Streamlit UI 구현
+# UI
 st.title('장애인 일자리 매칭 시스템')
-
 user_type = st.selectbox('사용자 유형을 선택하세요', ['회사', '지원자'])
 
 if user_type == '회사':
@@ -70,8 +63,8 @@ elif user_type == '지원자':
         for company, job_name, score in results:
             st.write(f'회사: {company}, 업무: {job_name}, 적합도 점수: {score}')
 
-# 유료 서비스 확인
-if st.button('추가 질문'):
+# 유료 서비스 질문
+if st.button('유료 서비스'):
     st.session_state['response'] = ''
 
 if st.session_state['response'] == '':
